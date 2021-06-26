@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Component {...pageProps} />
       <Head>
           <title>Conlang Corpora</title>
-          <meta name="description" content="Check fast how something is translated into a conlang" />
+          <meta name="description" content="Quickly check how something is translated into a conlang" />
           <link rel="icon" href="/favicon.ico" />
       </Head>
     </>
