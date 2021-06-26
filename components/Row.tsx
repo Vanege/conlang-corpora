@@ -1,9 +1,22 @@
-export default function Row({ row } :
-  { row: string[] }) {
+import { useMemo } from "react";
+
+export default function Row({ row, search } : { row: string[], search: string }) {
+
+  const indexOfSearchMatch = useMemo<number>(() => {
+    return row[0].indexOf(search);
+  }, [row, search]);
+
+  const l1rowStart = useMemo<string>(() => {
+    return row[0].substring(0, indexOfSearchMatch);
+  }, [row, indexOfSearchMatch]);
+
+  const l1rowEnd = useMemo<string>(() => {
+    return row[0].substring(indexOfSearchMatch + search.length, row[0].length); 
+  }, [row, indexOfSearchMatch, search]);
 
   return (<>
     <div className="row-container">
-      <div className="row-l1-wrapper">{row[0]}</div>
+      <div className="row-l1-wrapper">{l1rowStart}<span style={{textDecoration: "underline"}}>{search}</span>{l1rowEnd}</div>
       <div className="row-l2-wrapper">{row[1]}</div>
     </div>
 

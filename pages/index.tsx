@@ -233,7 +233,7 @@ export default function Home() {
       </div>
       <TextInput value={search} onChange={changeSearch} placeholder="Type substring to search (at least 3 characters)" />
       <div style={{display: "flex", flexDirection: "column" }}>
-        { rowsFilteredBySearch.map((row, index) => index < 30 && <Row row={row} key={index} />)}
+        { rowsFilteredBySearch.map((row, index) => index < 30 && <Row row={row} search={search ?? ""} key={index} />)}
       </div>
 
       <style jsx>{`
