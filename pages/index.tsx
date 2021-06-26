@@ -208,7 +208,7 @@ export default function Home() {
   }, [rows, search]);
 
   return (
-    <div style={{display: "flex", flexDirection: "column", margin: "5px 5px 5px 5px"}}>
+    <div className="container">
       <div style={{display: "flex"}}>
         <Select value={l1} items={l1List} onChange={changeL1} placeholder={"Language 1"}/>
         <div className="switch" onClick={switchLanguages}>↔</div>
@@ -243,11 +243,19 @@ export default function Home() {
       </div>
 
       <style jsx>{`
+        .container {
+          display: flex;
+          flex-direction: column;
+          margin: 0 10px 10px 10px;
+        }
+        .container > * {
+          margin-top: 10px;
+        }
         .switch {
           cursor: pointer;
           border-radius: 5px;
           border: lightgray solid 1px;
-          min-width: 25px;
+          min-width: 30px;
           display: flex;
           justify-content: center;
           align-items: center;
