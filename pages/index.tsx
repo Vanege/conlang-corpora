@@ -229,7 +229,7 @@ export default function Home() {
             )
           }
         </div>
-        { rows.length > 0 && <div>Loaded rows: {rows.length}</div> }
+        { rows.length > 0 && <div>Rows loaded: {rows.length}</div> }
       </div>
       <TextInput value={search} onChange={changeSearch} placeholder="Type substring to search (at least 3 characters)" />
       <div style={{display: "flex", flexDirection: "column" }}>
