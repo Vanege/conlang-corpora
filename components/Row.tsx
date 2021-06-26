@@ -3,12 +3,16 @@ import { useMemo } from "react";
 export default function Row({ row, search } : { row: string[], search: string }) {
 
   const indexOfSearchMatch = useMemo<number>(() => {
-    return row[0].indexOf(search);
+    return (row[0].toLowerCase()).indexOf(search.toLowerCase());
   }, [row, search]);
 
   const l1rowStart = useMemo<string>(() => {
     return row[0].substring(0, indexOfSearchMatch);
   }, [row, indexOfSearchMatch]);
+
+  const l1rowCenter = useMemo<string>(() => {
+    return row[0].substring(indexOfSearchMatch, indexOfSearchMatch + search.length);
+  }, [row, indexOfSearchMatch, search]);
 
   const l1rowEnd = useMemo<string>(() => {
     return row[0].substring(indexOfSearchMatch + search.length, row[0].length); 
@@ -16,7 +20,7 @@ export default function Row({ row, search } : { row: string[], search: string })
 
   return (<>
     <div className="row-container">
-      <div className="row-l1-wrapper">{l1rowStart}<span style={{textDecoration: "underline"}}>{search}</span>{l1rowEnd}</div>
+      <div className="row-l1-wrapper">{l1rowStart}<span style={{textDecoration: "underline"}}>{l1rowCenter}</span>{l1rowEnd}</div>
       <div className="row-l2-wrapper">{row[1]}</div>
     </div>
 
