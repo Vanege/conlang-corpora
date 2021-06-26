@@ -231,7 +231,10 @@ export default function Home() {
         </div>
         { rows.length > 0 && <div>Rows loaded: {rows.length}</div> }
       </div>
-      <TextInput value={search} onChange={changeSearch} placeholder="Type substring to search (at least 3 characters)" />
+      <div style={{display: "flex"}}>
+        <TextInput value={search} onChange={changeSearch} placeholder="Type at least 3 characters" />
+        <input onClick={() => changeSearch("")} type="reset" value="Reset"/>
+      </div>
       <div style={{display: "flex", flexDirection: "column" }}>
         { rowsFilteredBySearch.map((row, index) => index < 30 && <Row row={row} search={search ?? ""} key={index} />)}
       </div>
