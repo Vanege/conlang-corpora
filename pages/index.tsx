@@ -66,14 +66,11 @@ export default function Home() {
   // at first render, set l1 and l2 using the query string
   // keep the state in sync with the query string
   useEffect(() => {
-    console.log("query changed!")
     const params = new URLSearchParams(window.location.search);
     setL1(params.get("l1"));
     setL2(params.get("l2"));
     const selectedCorpusIdsJSON = params.get("selectedCorpusIds") ?? "[]";
-    console.log("a")
     setSelectedCorpusIds(JSON.parse(selectedCorpusIdsJSON));
-    console.log("b")
     setSearch(params.get("search"));
   }, [router.query]);
 
