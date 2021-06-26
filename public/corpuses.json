@@ -1,0 +1,49 @@
+[
+   {
+      "id": 1,
+      "name": "Frate peti (capitol 1)",
+      "languages": [
+         "English",
+         "Elefen"
+      ],
+      "link": "https://spreadsheets.google.com/feeds/cells/1aeo2v0MG6VGSio12-t0issmL1N2DIdwG4l5GpMFBVIc/8/public/full?alt=json",
+      "source": "https://docs.google.com/spreadsheets/d/1aeo2v0MG6VGSio12-t0issmL1N2DIdwG4l5GpMFBVIc/edit#gid=226776377"
+   },
+   {
+      "id": 2,
+      "name": "Frazoj de Vanege",
+      "languages": [
+         "Esperanto",
+         "Globasa"
+      ],
+      "link": "https://spreadsheets.google.com/feeds/cells/1aeo2v0MG6VGSio12-t0issmL1N2DIdwG4l5GpMFBVIc/2/public/full?alt=json",
+      "source": "https://docs.google.com/spreadsheets/d/1aeo2v0MG6VGSio12-t0issmL1N2DIdwG4l5GpMFBVIc/edit#gid=368641963"
+   },
+   {
+      "id": 3,
+      "name": "Doxo",
+      "languages": [
+         "English",
+         "Globasa"
+      ],
+      "link": "https://spreadsheets.google.com/feeds/cells/1aeo2v0MG6VGSio12-t0issmL1N2DIdwG4l5GpMFBVIc/1/public/full?alt=json"
+   },
+   {
+      "id": 4,
+      "name": "Jumle de Ektor",
+      "languages": [
+         "Esperanto",
+         "Globasa"
+      ],
+      "link": "https://spreadsheets.google.com/feeds/cells/1aeo2v0MG6VGSio12-t0issmL1N2DIdwG4l5GpMFBVIc/3/public/full?alt=json"
+   },
+   {
+      "id": 5,
+      "name": "Sentensu ofo Vanege",
+      "languages": [
+         "Esperanto",
+         "Langugu"
+      ],
+      "link": "https://spreadsheets.google.com/feeds/cells/1aeo2v0MG6VGSio12-t0issmL1N2DIdwG4l5GpMFBVIc/6/public/full?alt=json"
+   }
+]
