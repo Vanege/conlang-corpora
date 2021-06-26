@@ -216,8 +216,8 @@ export default function Home() {
         <div style={{display: "flex", minHeight: "20px"}}>
           { selectableCorpuses.length === 0 && "Select languages to see the list of corpuses" }
           { selectableCorpuses.length !== 0 && selectableCorpuses.map(sC =>
-              <>
-                <Checkbox value={selectedCorpusIds.includes(sC.id)} label={sC.name} onChange={() => selectCorpusId(sC)} key={sC.id} />
+              <div key={sC.id} style={{display: "flex"}}>
+                <Checkbox value={selectedCorpusIds.includes(sC.id)} label={sC.name} onChange={() => selectCorpusId(sC)} />
                 {
                   isDefined(sC.source) && 
                   <>
@@ -225,7 +225,7 @@ export default function Home() {
                     <a href={sC.source} target="_blank" rel="noreferrer" style={{color: "darkblue"}}>(link)</a>
                   </>
                 }
-              </>
+              </div>
             )
           }
         </div>
