@@ -71,7 +71,9 @@ export default function Home() {
     setL2(params.get("l2"));
     const selectedCorpusIdsJSON = params.get("selectedCorpusIds") ?? "[]";
     setSelectedCorpusIds(JSON.parse(selectedCorpusIdsJSON));
-    setSearch(params.get("search"));
+    // we can't use the query string as the source of truth for the search
+    // because it takes too much time to update on mobile
+    // setSearch(params.get("search"));
   }, [router.query]);
 
   const changeL1 = (value: string) => {
@@ -191,6 +193,7 @@ export default function Home() {
     const params = new URLSearchParams(window.location.search);
     params.set("search", value);
     router.push({query: params.toString()}, undefined, { shallow: true });
+    setSearch(value)
   }
 
   const [rowsFilteredBySearch, setRowsFilteredBySearch] = useState<string[][]>([]);
