@@ -6,8 +6,9 @@ import Row from '../components/Row';
 import { isDefined, isString } from '../utils/type-guards';
 import { useRouter } from 'next/router';
 import formatGoogleSpreadsheet from '../utils/formatGoogleSpreadsheet';
+import formatCorpusListFromSpreadsheet from '../utils/formatCorpusListFromSpreadsheet';
 
-type Corpus = {
+export type Corpus = {
   id: number
   name: string;
   languages: string[];
@@ -26,9 +27,10 @@ export default function Home() {
   const [corpuses, setCorpuses] = useState<Corpus[]>([]);
   useEffect(() => {
     const fetchCorpuses = async () => {
-      const res = await fetch('/corpuses.json')
-      const json = await res.json();
-      setCorpuses(json);
+      const res = await fetch(`https://spreadsheets.google.com/feeds/cells/1aeo2v0MG6VGSio12-t0issmL1N2DIdwG4l5GpMFBVIc/9/public/full?alt=json`)
+      let data = await res.json();
+      data = formatCorpusListFromSpreadsheet(data);
+      setCorpuses(data);
     }
     fetchCorpuses();
   }, []);
