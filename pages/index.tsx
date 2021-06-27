@@ -33,6 +33,9 @@ export default function Home() {
       setCorpuses(data);
     }
     fetchCorpuses();
+    // prefill the search with the one in the query string
+    const params = new URLSearchParams(window.location.search);
+    setSearch(params.get("search"));
   }, []);
 
   const l1List = useMemo<string[]>(() => {
@@ -63,7 +66,6 @@ export default function Home() {
   }, [corpuses, l1]);
   const [l2, setL2] = useState<string | null>("");
 
-  // at first render, set l1 and l2 using the query string
   // keep the state in sync with the query string
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
