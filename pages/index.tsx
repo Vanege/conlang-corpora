@@ -201,11 +201,15 @@ export default function Home() {
   const [rowsFilteredBySearch, setRowsFilteredBySearch] = useState<string[][]>([]);
   useEffect(() => {
     let rowsFilteredBySearch: string[][] = [];
+    // should try to match rows only if at least 3 characters are typed
     if (!isDefined(search) || search.length < 3) {
       setRowsFilteredBySearch([]);
       return;
     }
+    // ignore casing
     rowsFilteredBySearch = rows.filter(row => (row[0].toLowerCase()).includes(search.toLowerCase()))
+    // exclude rows with missing data
+    rowsFilteredBySearch = rowsFilteredBySearch.filter(row => { return row[0] !== "" && row[1] !== "" })
     setRowsFilteredBySearch(rowsFilteredBySearch);
   }, [rows, search]);
 
