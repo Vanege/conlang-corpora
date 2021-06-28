@@ -1,6 +1,6 @@
 export default function Add() {
   return (
-    <div style={{padding: "5px 5px 5px 5px"}}>
+    <div style={{padding: "10px 10px 10px 10px"}}>
       If you want to add a corpus, follow these steps:
       <br/>
       <br/>
@@ -35,6 +35,8 @@ export default function Add() {
       <br/>
       <br/>
       Note that after being added, your corpus might be unlisted if I receive complaints about its content.
+      <br />
+      Note that userlangs (conlangs made to be learned and used) take priority over makerlangs (conlangs made for the fun of the maker).
     </div>
   )
 }
