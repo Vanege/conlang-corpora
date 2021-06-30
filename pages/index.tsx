@@ -238,6 +238,7 @@ export default function Home() {
             )
           }
         </div>
+        { selectedCorpusIds.length > 0 && rows.length === 0 && <div>Loading rows, please wait...</div> }
         { rows.length > 0 && <div>Rows loaded: {rows.length}</div> }
       </div>
       <div style={{display: "flex"}}>
