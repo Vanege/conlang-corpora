@@ -125,6 +125,10 @@ export default function Home() {
     }
   }
 
+  const hasASelectableCorpusSelected = useMemo<boolean>(() => {
+    return selectableCorpuses.some(selectableCorpus => selectedCorpusIds.includes(selectableCorpus.id));
+  }, [selectableCorpuses, selectedCorpusIds]);
+
   const selectedCorpuses = useMemo<Corpus[]>(() => {
     return selectableCorpuses.filter(corpus => selectedCorpusIds.includes(corpus.id));
   }, [selectableCorpuses, selectedCorpusIds]);
@@ -238,7 +242,7 @@ export default function Home() {
             )
           }
         </div>
-        { selectedCorpusIds.length > 0 && rows.length === 0 && <div>Loading rows, please wait...</div> }
+        { hasASelectableCorpusSelected && rows.length === 0 && <div>Loading rows, please wait...</div> }
         { rows.length > 0 && <div>Rows loaded: {rows.length}</div> }
       </div>
       <div style={{display: "flex"}}>
