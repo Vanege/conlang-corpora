@@ -9,7 +9,7 @@ export default function Add() {
       <br/>
       2) Each column of the spreadsheet must be associated to one (and always the same) language
       <br/>
-      Note: the first row, and cells beginning with -- or // will be ignored. You can use that to leave comments in your spreadsheet.
+      Note: the first row, and cells beginning with // will be ignored. You can use that to leave comments in your spreadsheet.
       <br/>
       Note: the first language should be located on the first column of the document.
       <br/>

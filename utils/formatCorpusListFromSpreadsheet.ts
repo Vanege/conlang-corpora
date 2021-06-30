@@ -17,7 +17,7 @@ const formatCorpusListFromSpreadsheet = (json: any): Corpus[] => {
   
     // skip if the inputValue starts with -- or // (comment)
     // ?? should not be allowed for faster formating?
-    if (cell.inputValue.startsWith("--") || cell.inputValue.startsWith("//")) {
+    if (cell.inputValue.startsWith("//")) {
       continue;
     }
   
