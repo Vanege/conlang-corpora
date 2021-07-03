@@ -125,10 +125,6 @@ export default function Home() {
     }
   }
 
-  const hasASelectableCorpusSelected = useMemo<boolean>(() => {
-    return selectableCorpuses.some(selectableCorpus => selectedCorpusIds.includes(selectableCorpus.id));
-  }, [selectableCorpuses, selectedCorpusIds]);
-
   const selectedCorpuses = useMemo<Corpus[]>(() => {
     return selectableCorpuses.filter(corpus => selectedCorpusIds.includes(corpus.id));
   }, [selectableCorpuses, selectedCorpusIds]);
@@ -165,6 +161,12 @@ export default function Home() {
     }
     fetchCorpuses();
   }, [selectedCorpuses, fetchedCorpuses]);
+
+  const areAllSelectableCorpusesThatAreSelectedFetched = useMemo<boolean>(() => {
+    const selectableCorpusesThatAreSelected = selectableCorpuses.filter(selectableCorpus => selectedCorpusIds.includes(selectableCorpus.id));
+    const idsOfSelectableCorpusesThatAreSelected = selectableCorpusesThatAreSelected.map(c => c.id);
+    return idsOfSelectableCorpusesThatAreSelected.every(id => fetchedCorpuses.some(fC => fC.id === id))
+  }, [selectableCorpuses, selectedCorpusIds, fetchedCorpuses]);
 
   // rows: [["l1", "l2"], ["l1", "l2"], ...]
   const [rows, setRows] = useState<string[][]>([]);
@@ -242,8 +244,10 @@ export default function Home() {
             )
           }
         </div>
-        { hasASelectableCorpusSelected && rows.length === 0 && <div>Loading rows, please wait...</div> }
-        { rows.length > 0 && <div>Rows loaded: {rows.length}</div> }
+        <div style={{display: "flex"}}>
+          { !areAllSelectableCorpusesThatAreSelectedFetched && <div>(Loading rows...)&nbsp;</div> }
+          { rows.length > 0 && <div>Rows loaded: {rows.length}</div> }
+        </div>
       </div>
       <div style={{display: "flex"}}>
         <TextInput value={search} onChange={changeSearch} placeholder="Type at least 3 characters" />
