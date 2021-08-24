@@ -7,6 +7,7 @@ import { isDefined, isString } from '../utils/type-guards';
 import { useRouter } from 'next/router';
 import formatGoogleSpreadsheet from '../utils/formatGoogleSpreadsheet';
 import formatCorpusListFromSpreadsheet from '../utils/formatCorpusListFromSpreadsheet';
+import { contentUrl } from '../config';
 
 export type Corpus = {
   id: number
@@ -27,7 +28,7 @@ export default function Home() {
   const [corpuses, setCorpuses] = useState<Corpus[]>([]);
   useEffect(() => {
     const fetchCorpuses = async () => {
-      const res = await fetch(`https://spreadsheets.google.com/feeds/cells/1aeo2v0MG6VGSio12-t0issmL1N2DIdwG4l5GpMFBVIc/9/public/full?alt=json`)
+      const res = await fetch(`${contentUrl}/corpora.json`)
       let data = await res.json();
       data = formatCorpusListFromSpreadsheet(data);
       setCorpuses(data);
@@ -82,13 +83,13 @@ export default function Home() {
     const params = new URLSearchParams(window.location.search);
     params.set("l1", value);
     params.set("l2", "");
-    router.push({query: params.toString()}, undefined, { shallow: true });
+    router.push({ query: params.toString() }, undefined, { shallow: true });
   }
 
   const changeL2 = (value: string) => {
     const params = new URLSearchParams(window.location.search);
     params.set("l2", value);
-    router.push({query: params.toString()}, undefined, { shallow: true });
+    router.push({ query: params.toString() }, undefined, { shallow: true });
   }
 
   const switchLanguages = async () => {
@@ -98,7 +99,7 @@ export default function Home() {
       const params = new URLSearchParams(window.location.search);
       params.set("l1", oldL2);
       params.set("l2", oldL1);
-      router.push({query: params.toString()}, undefined, { shallow: true });
+      router.push({ query: params.toString() }, undefined, { shallow: true });
     }
   }
 
@@ -109,7 +110,7 @@ export default function Home() {
   }, [corpuses, l1, l2]);
 
   const [selectedCorpusIds, setSelectedCorpusIds] = useState<number[]>([]);
-  
+
   const selectCorpusId = (newlySelectedCorpus: Corpus) => {
     const newlySelectedCorpusId: number = newlySelectedCorpus.id;
     // if the corpus was already selected, remove it from the list
@@ -117,11 +118,11 @@ export default function Home() {
       const newSelectedCorpusIds = selectedCorpusIds.filter(id => id !== newlySelectedCorpusId);
       const params = new URLSearchParams(window.location.search);
       params.set("selectedCorpusIds", JSON.stringify(newSelectedCorpusIds));
-      router.push({query: params.toString()}, undefined, { shallow: true });
+      router.push({ query: params.toString() }, undefined, { shallow: true });
     } else {
       const params = new URLSearchParams(window.location.search);
       params.set("selectedCorpusIds", JSON.stringify([...selectedCorpusIds, newlySelectedCorpusId]));
-      router.push({query: params.toString()}, undefined, { shallow: true });
+      router.push({ query: params.toString() }, undefined, { shallow: true });
     }
   }
 
@@ -134,8 +135,8 @@ export default function Home() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (selectableCorpuses.length > 0 && params.get("selectedCorpusIds") === null)
-    params.set("selectedCorpusIds", JSON.stringify(selectableCorpuses.map(sC => sC.id)));
-    router.push({query: params.toString()}, undefined, { shallow: true });
+      params.set("selectedCorpusIds", JSON.stringify(selectableCorpuses.map(sC => sC.id)));
+    router.push({ query: params.toString() }, undefined, { shallow: true });
   }, [selectableCorpuses]);
 
   const [fetchedCorpuses, setFetchedCorpuses] = useState<FetchedCorpus[]>([]);
@@ -196,11 +197,11 @@ export default function Home() {
   }, [fetchedCorpuses, l1, l2, selectedCorpuses]);
 
   const [search, setSearch] = useState<string | null>(null);
-  
+
   const changeSearch = (value: string) => {
     const params = new URLSearchParams(window.location.search);
     params.set("search", value);
-    router.push({query: params.toString()}, undefined, { shallow: true });
+    router.push({ query: params.toString() }, undefined, { shallow: true });
     setSearch(value)
   }
 
@@ -221,40 +222,40 @@ export default function Home() {
 
   return (
     <div className="container">
-      <div style={{display: "flex"}}>
-        <Select value={l1} items={l1List} onChange={changeL1} placeholder={"Language 1"}/>
+      <div style={{ display: "flex" }}>
+        <Select value={l1} items={l1List} onChange={changeL1} placeholder={"Language 1"} />
         <div className="switch" onClick={switchLanguages}>↔</div>
-        <Select value={l2} items={l2List} onChange={changeL2} placeholder={"Language 2"}/>
+        <Select value={l2} items={l2List} onChange={changeL2} placeholder={"Language 2"} />
         <a className="switch" href="/add" target="_blank" rel="noreferrer">+</a>
       </div>
-      <div style={{display: "flex", justifyContent: "space-between"}}>
-        <div style={{display: "flex", minHeight: "20px"}}>
-          { selectableCorpuses.length === 0 && "Select languages to see the list of corpuses" }
-          { selectableCorpuses.length !== 0 && selectableCorpuses.map(sC =>
-              <div key={sC.id} style={{display: "flex"}}>
-                <Checkbox value={selectedCorpusIds.includes(sC.id)} label={sC.name} onChange={() => selectCorpusId(sC)} />
-                {
-                  isDefined(sC.source) && 
-                  <>
-                    &nbsp;
-                    <a href={sC.source} target="_blank" rel="noreferrer" style={{color: "darkblue"}}>(link)</a>
-                  </>
-                }
-              </div>
-            )
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", minHeight: "20px" }}>
+          {selectableCorpuses.length === 0 && "Select languages to see the list of corpuses"}
+          {selectableCorpuses.length !== 0 && selectableCorpuses.map(sC =>
+            <div key={sC.id} style={{ display: "flex" }}>
+              <Checkbox value={selectedCorpusIds.includes(sC.id)} label={sC.name} onChange={() => selectCorpusId(sC)} />
+              {
+                isDefined(sC.source) &&
+                <>
+                  &nbsp;
+                  <a href={sC.source} target="_blank" rel="noreferrer" style={{ color: "darkblue" }}>(link)</a>
+                </>
+              }
+            </div>
+          )
           }
         </div>
-        <div style={{display: "flex"}}>
-          { !areAllSelectableCorpusesThatAreSelectedFetched && <div>(Loading rows...)&nbsp;</div> }
-          { rows.length > 0 && <div>Rows loaded: {rows.length}</div> }
+        <div style={{ display: "flex" }}>
+          {!areAllSelectableCorpusesThatAreSelectedFetched && <div>(Loading rows...)&nbsp;</div>}
+          {rows.length > 0 && <div>Rows loaded: {rows.length}</div>}
         </div>
       </div>
-      <div style={{display: "flex"}}>
+      <div style={{ display: "flex" }}>
         <TextInput value={search} onChange={changeSearch} placeholder="Type at least 3 characters" />
-        <input onClick={() => changeSearch("")} type="reset" value="Reset"/>
+        <input onClick={() => changeSearch("")} type="reset" value="Reset" />
       </div>
-      <div style={{display: "flex", flexDirection: "column" }}>
-        { rowsFilteredBySearch.map((row, index) => index < 30 && <Row row={row} search={search ?? ""} key={index} />)}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {rowsFilteredBySearch.map((row, index) => index < 30 && <Row row={row} search={search ?? ""} key={index} />)}
       </div>
 
       <style jsx>{`

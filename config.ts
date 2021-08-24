@@ -1,0 +1,1 @@
+export const contentUrl = "https://conlang-corpora-static.vercel.app";

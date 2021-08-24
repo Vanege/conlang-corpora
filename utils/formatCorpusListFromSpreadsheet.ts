@@ -1,56 +1,18 @@
 import { Corpus } from "../pages";
 
-type Cell = {
-  row: string;
-  col: string;
-  inputValue: string;
+type JsonCorpus = {
+  name: string;
+  languages: string;
+  link: string;
+  source: string;
+  comment: string;
 }
 
-const formatCorpusListFromSpreadsheet = (json: any): Corpus[] => {
-  const cells: Cell[] = json.feed.entry.map((e: any) => e.gs$cell)
-
-  let data: Partial<Corpus>[] = [];
-  for (const cell of cells) {
-    if (cell.row === "1") {
-      continue;
-    }
-  
-    // skip if the inputValue starts with -- or // (comment)
-    // ?? should not be allowed for faster formating?
-    if (cell.inputValue.startsWith("//")) {
-      continue;
-    }
-  
-    const incompleteCorpus = data[parseInt(cell.row) - 1];
-    if (typeof incompleteCorpus === "undefined") {
-      data[parseInt(cell.row) - 1] = {};
-    }
-
-    let propertyToAdd = "???";
-    switch (cell.col) {
-      case "1":
-        propertyToAdd = "name";
-        break;
-      case "2":
-        propertyToAdd = "languages";
-        break;
-      case "3":
-        propertyToAdd = "link";
-        break;
-      case "4":
-        propertyToAdd = "source";
-        break;
-    }
-
-    data[parseInt(cell.row) - 1] = {
-       ...incompleteCorpus,
-       [propertyToAdd]: (propertyToAdd === "languages") ? cell.inputValue.split(",") : cell.inputValue
-    }
-  }
-  data = data.filter(c => typeof c !== "undefined");
-  data = data.map((c, index) => {
+const formatCorpusListFromSpreadsheet = (jsonCorpuses: JsonCorpus[]): Corpus[] => {
+  const data = jsonCorpuses.map((jsonCorpus, index) => {
     return {
-      ...c,
+      ...jsonCorpus,
+      languages: jsonCorpus.languages?.split(","),
       id: index
     }
   })
