@@ -226,7 +226,7 @@ export default function Home() {
         <Select value={l1} items={l1List} onChange={changeL1} placeholder={"Language 1"} />
         <div className="switch" onClick={switchLanguages}>↔</div>
         <Select value={l2} items={l2List} onChange={changeL2} placeholder={"Language 2"} />
-        <a className="switch" href="/add" target="_blank" rel="noreferrer">+</a>
+        { /* <a className="switch" href="/add" target="_blank" rel="noreferrer">+</a> */}
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ display: "flex", minHeight: "20px" }}>
