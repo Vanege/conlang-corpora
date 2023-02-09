@@ -156,12 +156,12 @@ export default function Home() {
             ...selectedCorpus,
             data
           }
-          setFetchedCorpuses([...fetchedCorpuses, newFetchedCorpus])
+          setFetchedCorpuses((fC: FetchedCorpus[]) => [...fC, newFetchedCorpus])
         }
       }
     }
     fetchCorpuses();
-  }, [selectedCorpuses, fetchedCorpuses]);
+  }, [selectedCorpuses]);
 
   const areAllSelectableCorpusesThatAreSelectedFetched = useMemo<boolean>(() => {
     const selectableCorpusesThatAreSelected = selectableCorpuses.filter(selectableCorpus => selectedCorpusIds.includes(selectableCorpus.id));
